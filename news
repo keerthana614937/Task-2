@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Expo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: url('https://images.pexels.com/photos/261949/pexels-photo-261949.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    header, footer {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+    }
+
+    nav a { color: #fff; text-decoration: none; }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    form, .news-list {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea, button {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .news-list {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .news-list h2 { margin-bottom: 1rem; }
+
+    .news-list ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .news-list ul li {
+      margin-bottom: 0.5rem;
+      background-color: #000;
+      border-radius: 5px;
+      padding: 0.5rem;
+      transition: background 0.3s;
+    }
+
+    .news-list ul li a {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+
+    .news-list ul li:hover {
+      background-color: #8e8989;
+    }
+
+    #greeting {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      nav { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>News Expo</h1>
+    <p>Read free newspapers online – curated for you</p>
+  </header>
+
+  <nav>
+    <a href="#form">Join Us</a>
+    <a href="#news">Read News</a>
+  </nav>
+
+  <main class="container">
+    <section id="form">
+      <h2>Registration Form</h2>
+      <form id="userForm">
+        <input type="text" id="username" placeholder="Your Name" required>
+        <input type="tel" id="mobile" placeholder="Phone Number" pattern="[0-9]{10}" required>
+        <textarea id="interest" placeholder="Why are you interested & what kind of news?" rows="4" required></textarea>
+        <button type="submit">Signup</button>
+      </form>
+    </section>
+
+    <section id="news" class="news-list">
+      <div id="greeting"></div>
+      <h2>Select a Newspaper</h2>
+      <ul>
+        <li><a href="https://www.thehindu.com/" target="_blank">The Hindu</a></li>
+        <li><a href="https://timesofindia.indiatimes.com/" target="_blank">Times of India</a></li>
+        <li><a href="https://www.ndtv.com/" target="_blank">NDTV</a></li>
+        <li><a href="https://www.bbc.com/news" target="_blank">BBC News</a></li>
+        <li><a href="https://www.aljazeera.com/" target="_blank">Al Jazeera</a></li>
+        <li><a href="https://www.reuters.com/" target="_blank">Reuters</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 News Expo. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const formSection = document.getElementById('form');
+    const form = document.getElementById('userForm');
+    const newsSection = document.getElementById('news');
+    const greeting = document.getElementById('greeting');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('username').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+      const interest = document.getElementById('interest').value.trim();
+      const mobilePattern = /^[0-9]{10}$/;
+
+      if (!name || !mobile || !interest) {
+        alert('All fields are required.');
+        return;
+      }
+
+      if (!mobilePattern.test(mobile)) {
+        alert('Please enter a valid 10-digit phone number.');
+        return;
+      }
+
+      greeting.textContent = `Welcome, ${name}! Based on your interest, select a newspaper below:`;
+
+      formSection.style.display = 'none';
+      newsSection.scrollIntoView({ behavior: 'smooth' });
+      newsSection.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
